@@ -7,8 +7,6 @@
 //
 
 #import "InterfaceOrientationUtil.h"
-
-#import "InterfaceOrientationUtil.h"
 #import <CoreMotion/CoreMotion.h>
 
 @interface InterfaceOrientationUtil ()

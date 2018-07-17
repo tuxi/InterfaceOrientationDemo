@@ -35,4 +35,13 @@
 }
 */
 
+// 即使此页面不允许横屏，也需要设置此处YES，不然会造成从横屏页面进入此页面，无法旋转为竖屏的问题
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 @end
