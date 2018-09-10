@@ -39,6 +39,9 @@
         /// @note 需要在app的rootViewController中初始化InterfaceOrientationUtil，以便在设备方向改变时记录forceOrientation
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientaionDidChange:) name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+        /// 初始化时确保forceOrientation知道当前设备真实的方向，保证在启动app时用户未选择屏幕时，强制旋转屏幕后还能再旋转回来
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        self.forceOrientation = orientation;
         self.immediatelyUpdateUI = YES;
     }
     return self;
@@ -68,7 +71,7 @@
         case UIDeviceOrientationLandscapeRight:
             self.forceOrientation = device.orientation;
             // 只有当用户把手机旋转到横屏的时候来去触发判断是否支持横屏
-              [self setShouldAutorotate:YES];
+            [self setShouldAutorotate:YES];
             break;
         default:
             /// 屏幕方向不需要自动旋转，需要将forceOrientation设置为竖屏，防止界面被强制修改了
@@ -191,4 +194,5 @@
 - (void)setForceOrientation:(UIDeviceOrientation)forceOrientation {
     _forceOrientation = forceOrientation;
 }
+
 @end
