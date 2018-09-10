@@ -24,7 +24,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[InterfaceOrientationUtil sharedInsatnce] applyInterfaceOrientation:UIInterfaceOrientationPortrait];
+    [[InterfaceOrientationUtil sharedInsatnce] rotateInterfaceOrientation:UIInterfaceOrientationPortrait];
 }
 
 - (IBAction)naviAction:(id)sender {

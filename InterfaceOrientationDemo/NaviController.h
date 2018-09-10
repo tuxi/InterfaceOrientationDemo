@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NaviController : UIViewController
 
+@property (nonatomic, assign) BOOL supportRotatingScreen;
+
 @end
 
 NS_ASSUME_NONNULL_END

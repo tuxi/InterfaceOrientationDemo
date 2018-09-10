@@ -22,8 +22,10 @@
 }
 
 - (void)dealloc {
-    [[InterfaceOrientationUtil sharedInsatnce] stopListeningDirectionOfDevice];
-    [[InterfaceOrientationUtil sharedInsatnce] applyInterfaceOrientation:UIInterfaceOrientationPortrait];
+    if (self.supportRotatingScreen) {
+        [[InterfaceOrientationUtil sharedInsatnce] stopListeningDirectionOfDevice];
+        [[InterfaceOrientationUtil sharedInsatnce] rotateInterfaceOrientation:UIInterfaceOrientationPortrait];
+    }
 }
 
 - (void)viewDidLoad {
@@ -38,18 +40,37 @@
     [btn setTitle:@"support" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(supportAction:) forControlEvents:UIControlEventTouchUpInside];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[InterfaceOrientationUtil sharedInsatnce] autorotateInterfaceOrientation];
+    if (!self.supportRotatingScreen) {
+        [[InterfaceOrientationUtil sharedInsatnce] rotateInterfaceOrientation:UIInterfaceOrientationPortrait];
+    }
+    else {
+        [[InterfaceOrientationUtil sharedInsatnce] autorotateInterfaceOrientation];
+    }
+    [[InterfaceOrientationUtil sharedInsatnce] stopListeningDirectionOfDevice];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
 }
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (self.supportRotatingScreen) {
+        [[InterfaceOrientationUtil sharedInsatnce] startListeningDirectionOfDeviceWithImmediately:NO];
+    }
+}
+
+- (BOOL)supportRotatingScreen {
+    return YES;
+}
+
 - (BOOL)shouldAutorotate {
     return YES;
 }
